@@ -1,0 +1,19 @@
+[
+  {"model": "orders.siteconfig", "pk": 1, "fields": {
+    "site_name": "UKVI Services",
+    "site_tagline": "Official UK Visa & Immigration Fees",
+    "hero_title": "UK Visa & Immigration Fee Payment Made Easy",
+    "hero_subtitle": "Pay your UK visa application fees and Immigration Health Surcharge (IHS) securely and instantly. Trusted by thousands of applicants.",
+    "stat_1_value": "50K+", "stat_1_label": "Applications",
+    "stat_2_value": "100%", "stat_2_label": "Secure",
+    "stat_3_value": "24/7", "stat_3_label": "Support",
+    "contact_email": "support@ukviservices.co.uk",
+    "contact_phone": "+44 20 0000 0000",
+    "footer_text": "Not affiliated with the UK Home Office."
+  }},
+  {"model": "orders.product", "pk": 1, "fields": {"name": "Standard Visa Fee", "category": "visa", "price": "779.00", "description": "Standard UK visa application fee for most applicants.", "icon": "🛂", "is_popular": false, "is_active": true, "order": 1}},
+  {"model": "orders.product", "pk": 2, "fields": {"name": "Short-Stay Visa Fee", "category": "visa", "price": "370.00", "description": "Short-stay visa fee for visits up to 6 months.", "icon": "✈️", "is_popular": true, "is_active": true, "order": 2}},
+  {"model": "orders.product", "pk": 3, "fields": {"name": "IHS – Single Year", "category": "ihs", "price": "1079.00", "description": "Immigration Health Surcharge for 1 year coverage.", "icon": "🏥", "is_popular": false, "is_active": true, "order": 3}},
+  {"model": "orders.product", "pk": 4, "fields": {"name": "IHS – Two Years", "category": "ihs", "price": "2139.00", "description": "Immigration Health Surcharge for 2 years coverage.", "icon": "🏥", "is_popular": true, "is_active": true, "order": 4}},
+  {"model": "orders.product", "pk": 5, "fields": {"name": "IHS – Three Years", "category": "ihs", "price": "3122.00", "description": "Immigration Health Surcharge for 3 years coverage.", "icon": "🏥", "is_popular": false, "is_active": true, "order": 5}}
+]
