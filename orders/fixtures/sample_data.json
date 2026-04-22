@@ -1,0 +1,107 @@
+[
+  {
+    "model": "orders.order",
+    "pk": 10,
+    "fields": {
+      "customer_name": "James Wilson",
+      "customer_email": "james.wilson@example.com",
+      "customer_phone": "+44 7700 111111",
+      "total_amount": "779.00",
+      "status": "paid",
+      "stripe_session_id": "cs_test_sample_001",
+      "stripe_payment_intent": "pi_test_sample_001",
+      "created_at": "2026-04-01T10:30:00Z",
+      "updated_at": "2026-04-01T10:31:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 11,
+    "fields": {
+      "customer_name": "Sarah Ahmed",
+      "customer_email": "sarah.ahmed@example.com",
+      "customer_phone": "+44 7700 222222",
+      "total_amount": "3218.00",
+      "status": "paid",
+      "stripe_session_id": "cs_test_sample_002",
+      "stripe_payment_intent": "pi_test_sample_002",
+      "created_at": "2026-04-05T14:15:00Z",
+      "updated_at": "2026-04-05T14:16:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 12,
+    "fields": {
+      "customer_name": "Muhammad Ali",
+      "customer_email": "m.ali@example.com",
+      "customer_phone": "+44 7700 333333",
+      "total_amount": "370.00",
+      "status": "paid",
+      "stripe_session_id": "cs_test_sample_003",
+      "stripe_payment_intent": "pi_test_sample_003",
+      "created_at": "2026-04-10T09:00:00Z",
+      "updated_at": "2026-04-10T09:01:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 13,
+    "fields": {
+      "customer_name": "Emily Chen",
+      "customer_email": "emily.chen@example.com",
+      "customer_phone": "+44 7700 444444",
+      "total_amount": "2139.00",
+      "status": "pending",
+      "stripe_session_id": "",
+      "stripe_payment_intent": "",
+      "created_at": "2026-04-20T16:45:00Z",
+      "updated_at": "2026-04-20T16:45:00Z"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 14,
+    "fields": {
+      "customer_name": "David Patel",
+      "customer_email": "david.patel@example.com",
+      "customer_phone": "+44 7700 555555",
+      "total_amount": "1079.00",
+      "status": "paid",
+      "stripe_session_id": "cs_test_sample_005",
+      "stripe_payment_intent": "pi_test_sample_005",
+      "created_at": "2026-04-22T11:20:00Z",
+      "updated_at": "2026-04-22T11:21:00Z"
+    }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": 10,
+    "fields": { "order": 10, "product": 1, "quantity": 1, "unit_price": "779.00" }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": 11,
+    "fields": { "order": 11, "product": 2, "quantity": 1, "unit_price": "370.00" }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": 12,
+    "fields": { "order": 11, "product": 5, "quantity": 1, "unit_price": "3122.00" }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": 13,
+    "fields": { "order": 12, "product": 2, "quantity": 1, "unit_price": "370.00" }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": 14,
+    "fields": { "order": 13, "product": 4, "quantity": 1, "unit_price": "2139.00" }
+  },
+  {
+    "model": "orders.orderitem",
+    "pk": 15,
+    "fields": { "order": 14, "product": 3, "quantity": 1, "unit_price": "1079.00" }
+  }
+]
