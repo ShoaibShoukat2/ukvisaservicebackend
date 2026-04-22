@@ -11,8 +11,10 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://*.ngrok-free.app',
     'https://visaservice.pythonanywhere.com',
+    'https://*.vercel.app',
     'http://localhost:5500',
     'http://127.0.0.1:5500',
+    'http://localhost:5173',
 ]
 
 INSTALLED_APPS = [
@@ -89,6 +91,7 @@ CORS_ALLOW_HEADERS = [
 CORS_ALLOW_METHODS = [
     'DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT',
 ]
+CORS_PREFLIGHT_MAX_AGE = 86400
 
 # Stripe
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_YOUR_KEY_HERE')
