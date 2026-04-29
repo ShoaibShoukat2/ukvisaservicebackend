@@ -1,19 +1,20 @@
 import logging
 import stripe
 from django.conf import settings
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.authtoken.models import Token
 
 from .models import Product, Order, OrderItem, SiteConfig
 from .serializers import (
     ProductSerializer, OrderCreateSerializer, OrderSerializer,
-    SiteConfigSerializer, RegisterSerializer, CustomTokenSerializer, UserProfileSerializer
+    SiteConfigSerializer, RegisterSerializer, UserProfileSerializer
 )
 
 logger = logging.getLogger(__name__)
@@ -27,13 +28,16 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if not serializer.is_valid():
-            return Response({'error': 'Registration failed.', 'details': serializer.errors}, status=400)
+            # Return first error message cleanly
+            errors = serializer.errors
+            first_error = next(iter(errors.values()))
+            msg = first_error[0] if isinstance(first_error, list) else str(first_error)
+            return Response({'error': msg}, status=400)
         user = serializer.save()
-        refresh = RefreshToken.for_user(user)
+        token, _ = Token.objects.get_or_create(user=user)
         return Response({
             'message': 'Account created successfully.',
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
+            'token': token.key,
             'user': {
                 'id': user.id,
                 'username': user.username,
@@ -44,9 +48,28 @@ class RegisterView(APIView):
         }, status=201)
 
 
-class LoginView(TokenObtainPairView):
+class LoginView(APIView):
     permission_classes = [AllowAny]
-    serializer_class = CustomTokenSerializer
+
+    def post(self, request):
+        username = request.data.get('username', '').strip()
+        password = request.data.get('password', '').strip()
+        if not username or not password:
+            return Response({'error': 'Username and password are required.'}, status=400)
+        user = authenticate(username=username, password=password)
+        if not user:
+            return Response({'error': 'Invalid username or password.'}, status=401)
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+            }
+        })
 
 
 class LogoutView(APIView):
@@ -54,21 +77,17 @@ class LogoutView(APIView):
 
     def post(self, request):
         try:
-            refresh_token = request.data.get('refresh')
-            if refresh_token:
-                token = RefreshToken(refresh_token)
-                token.blacklist()
-            return Response({'message': 'Logged out successfully.'})
+            request.user.auth_token.delete()
         except Exception:
-            return Response({'message': 'Logged out.'})
+            pass
+        return Response({'message': 'Logged out successfully.'})
 
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        serializer = UserProfileSerializer(request.user)
-        return Response(serializer.data)
+        return Response(UserProfileSerializer(request.user).data)
 
     def put(self, request):
         serializer = UserProfileSerializer(request.user, data=request.data, partial=True)
